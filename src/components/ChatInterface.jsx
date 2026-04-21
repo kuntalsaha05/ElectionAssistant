@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { sendMessage } from '../services/gemini';
 import { Send, Bot, User, Loader2 } from 'lucide-react';
 import DOMPurify from 'dompurify';
@@ -50,7 +50,7 @@ const ChatInterface = React.memo(() => {
     scrollToBottom();
   }, [messages, isLoading]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
@@ -70,7 +70,7 @@ const ChatInterface = React.memo(() => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [input, isLoading]);
 
   return (
     <div className="chat-container">

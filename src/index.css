@@ -265,7 +265,7 @@ body {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.chat-input:focus {
+.chat-input:focus, .chat-input:focus-visible {
   outline: none;
   border-color: var(--primary);
   box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
@@ -286,6 +286,11 @@ body {
 
 .chat-submit:hover:not(:disabled) {
   background-color: var(--primary-hover);
+}
+
+.chat-submit:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .chat-submit:disabled {
