@@ -3,6 +3,9 @@
 ## 📌 Project Overview
 The Election Process Assistant is an interactive, dynamic web application designed to help users understand the complex election process, typical timelines, and essential voting steps. Built with modern web technologies, it features an interactive timeline and an AI-powered conversational agent that provides strictly educational and neutral information regarding elections.
 
+**🔗 Live Preview:** [https://election-assistant.vercel.app/](https://election-assistant.vercel.app/)
+
+
 ## 🎯 Chosen Vertical
 **Educational/Civic Engagement Assistant**
 The project focuses on civic education by simplifying the electoral process for the general public, encouraging voter awareness, and helping users understand how democratic systems function.
