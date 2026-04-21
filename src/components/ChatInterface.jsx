@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { sendMessage } from '../services/gemini';
 import { Send, Bot, User, Loader2 } from 'lucide-react';
 import DOMPurify from 'dompurify';
@@ -62,7 +62,7 @@ const ChatInterface = React.memo(() => {
     try {
       const response = await sendMessage(userMessage);
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
-    } catch (error) {
+    } catch {
       setMessages(prev => [...prev, { 
         role: 'assistant', 
         content: "I'm sorry, I encountered an error connecting to my knowledge base. Please ensure your API key is correctly configured." 

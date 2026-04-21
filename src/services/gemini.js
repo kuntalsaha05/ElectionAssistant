@@ -62,7 +62,7 @@ export const sendMessage = async (message) => {
     const result = await chatSession.sendMessage(message);
     const response = await result.response;
     return response.text();
-  } catch (error) {
+  } catch {
     console.error("Error communicating with Gemini API. Please check your configuration.");
     throw new Error("Failed to communicate with AI assistant.");
   }
