@@ -97,6 +97,7 @@ body {
 .timeline {
   position: relative;
   padding-left: 2rem;
+  list-style: none;
 }
 
 .timeline::before {

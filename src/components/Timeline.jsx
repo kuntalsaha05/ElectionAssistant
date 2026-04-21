@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const steps = [
   {
@@ -45,7 +46,11 @@ const steps = [
   }
 ];
 
-const Timeline = () => {
+/**
+ * Timeline component displays a chronological list of election events.
+ * @returns {JSX.Element} The Timeline component.
+ */
+const Timeline = React.memo(() => {
   return (
     <div className="timeline-container">
       <h2>Election Process Timeline</h2>
@@ -53,20 +58,22 @@ const Timeline = () => {
         A general overview of how the U.S. Presidential Election process unfolds.
       </p>
       
-      <div className="timeline">
+      <ul className="timeline">
         {steps.map((step) => (
-          <div key={step.id} className="timeline-step">
+          <li key={step.id} className="timeline-step">
             <div className="timeline-marker"></div>
             <div className="timeline-content">
               <div className="timeline-date">{step.date}</div>
               <div className="timeline-title">{step.title}</div>
               <div className="timeline-desc">{step.description}</div>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
-};
+});
+
+Timeline.displayName = 'Timeline';
 
 export default Timeline;

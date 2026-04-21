@@ -10,6 +10,12 @@ const SYSTEM_INSTRUCTION = `You are an interactive, educational, and strictly ne
 Your goal is to help users understand how elections work, the general timelines, and the typical steps involved (e.g., voter registration, primary elections, general elections, electoral college vs popular vote).
 Do NOT express political preferences, endorse candidates, or discuss sensitive non-process related political topics. Keep your answers concise, informative, easy-to-read (use bullet points), and strictly focused on the electoral process.`;
 
+/**
+ * Initializes the Google Gemini chat session.
+ * 
+ * @returns {Object} The active chat session instance.
+ * @throws {Error} If the API key is missing or invalid.
+ */
 export const initializeChat = () => {
   if (!API_KEY || API_KEY === 'your_gemini_api_key_here') {
     throw new Error("Missing Gemini API Key. Please add VITE_GEMINI_API_KEY to your .env file.");
@@ -41,6 +47,13 @@ export const initializeChat = () => {
   return chatSession;
 };
 
+/**
+ * Sends a user message to the Gemini API and retrieves the response.
+ * 
+ * @param {string} message - The user's input message.
+ * @returns {Promise<string>} The assistant's text response.
+ * @throws {Error} If the communication with the API fails.
+ */
 export const sendMessage = async (message) => {
   try {
     if (!chatSession) {
@@ -50,7 +63,7 @@ export const sendMessage = async (message) => {
     const response = await result.response;
     return response.text();
   } catch (error) {
-    console.error("Error communicating with Gemini API:", error);
-    throw error;
+    console.error("Error communicating with Gemini API. Please check your configuration.");
+    throw new Error("Failed to communicate with AI assistant.");
   }
 };

@@ -1,7 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { sendMessage } from '../services/gemini';
 import { Send, Bot, User, Loader2 } from 'lucide-react';
+import DOMPurify from 'dompurify';
+import PropTypes from 'prop-types';
 
+/**
+ * Formats basic markdown to HTML for display in the chat.
+ * 
+ * @param {string} text - The raw markdown text.
+ * @returns {string} The formatted HTML string.
+ */
 const formatMessage = (text) => {
   // Very basic markdown to HTML for bold and lists
   let formatted = text
@@ -17,7 +25,13 @@ const formatMessage = (text) => {
   return `<p>${formatted}</p>`;
 };
 
-const ChatInterface = () => {
+/**
+ * ChatInterface component provides an interactive chat UI for the user 
+ * to converse with the Election Process Assistant.
+ * 
+ * @returns {JSX.Element} The ChatInterface component.
+ */
+const ChatInterface = React.memo(() => {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
@@ -65,11 +79,11 @@ const ChatInterface = () => {
         <h2>Ask the Assistant</h2>
       </div>
 
-      <div className="chat-messages">
+      <div className="chat-messages" aria-live="polite" aria-busy={isLoading}>
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.role}`}>
             {msg.role === 'assistant' ? (
-              <div dangerouslySetInnerHTML={{ __html: formatMessage(msg.content) }} />
+              <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(formatMessage(msg.content)) }} />
             ) : (
               msg.content
             )}
@@ -94,14 +108,19 @@ const ChatInterface = () => {
             onChange={(e) => setInput(e.target.value)}
             placeholder="e.g., What happens during a primary election?"
             disabled={isLoading}
+            aria-label="Ask a question about the election process"
           />
-          <button type="submit" className="chat-submit" disabled={isLoading || !input.trim()}>
+          <button type="submit" className="chat-submit" disabled={isLoading || !input.trim()} aria-label="Send message">
             <Send size={20} />
           </button>
         </form>
       </div>
     </div>
   );
-};
+});
+
+ChatInterface.displayName = 'ChatInterface';
+
+ChatInterface.propTypes = {};
 
 export default ChatInterface;

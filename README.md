@@ -21,7 +21,16 @@ The project focuses on civic education by simplifying the electoral process for 
 
 3. **Performance & Optimization**:
    - Built as a React Single Page Application (SPA) using Vite for lightning-fast load times.
-   - Minimal dependencies (`react`, `lucide-react`, `@google/generative-ai`) to ensure the repository remains well under the 1 MB limit.
+   - Minimal core dependencies (`react`, `lucide-react`, `@google/generative-ai`) to ensure the repository remains well under the 1 MB limit.
+   - Leverages `React.memo` and `useCallback` to prevent unnecessary component re-renders.
+
+4. **Accessibility (a11y)**:
+   - Implements semantic HTML (`<main>`, `<header>`, `<ul>`, `<li>`) for proper screen reader navigation.
+   - ARIA labels (`aria-label`, `aria-live`, `aria-busy`) are used in the dynamic chat interface to ensure interactive elements and live updates are accessible.
+
+5. **Testing**:
+   - Includes an automated test suite powered by **Vitest** and **React Testing Library**.
+   - Validates UI component rendering, state changes, and mocked API interactions.
 
 ## 💡 Assumptions Made
 - The user has access to a modern web browser to view the application.
@@ -49,4 +58,11 @@ The project focuses on civic education by simplifying the electoral process for 
 
 ## 🔐 Security & Best Practices
 - The `.env` file is included in `.gitignore` to prevent leaking API keys to the public repository.
+- **Cross-Site Scripting (XSS) Protection**: All markdown-parsed content returned by the Gemini API is rigorously sanitized using `DOMPurify` before being injected into the DOM via `dangerouslySetInnerHTML`.
 - The repository only contains a single `main` branch.
+
+## 🧪 Running Tests
+To run the automated unit test suite locally:
+```bash
+npm run test
+```
